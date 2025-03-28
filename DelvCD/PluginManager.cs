@@ -86,33 +86,34 @@ namespace DelvCD
 
             WindowSystem.Draw();
 
-            Vector2 viewPortSize = ImGui.GetMainViewport().Size;
-            ImGuiHelpers.ForceNextWindowMainViewport();
-            ImGui.SetNextWindowPos(Vector2.Zero);
-            ImGui.SetNextWindowSize(viewPortSize);
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0);
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
-            ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-
-            try
+            if (Config.VisibilityConfig.IsVisible(true))
             {
-                if (ImGui.Begin("DelvCD_Root", _mainWindowFlags))
+                Vector2 viewPortSize = ImGui.GetMainViewport().Size;
+                ImGuiHelpers.ForceNextWindowMainViewport();
+                ImGui.SetNextWindowPos(Vector2.Zero);
+                ImGui.SetNextWindowSize(viewPortSize);
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0);
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Vector2(0, 0));
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+
+                try
                 {
-                    if (Config.VisibilityConfig.IsVisible(true))
+                    if (ImGui.Begin("DelvCD_Root", _mainWindowFlags))
                     {
                         Singletons.Get<StatusHelpers>().GenerateStatusMap();
                         Singletons.Get<ClipRectsHelper>().Update();
+
                         foreach (UIElement element in Config.ElementList.UIElements)
                         {
                             element.Draw((viewPortSize / 2) + Config.GroupConfig.Position);
                         }
                     }
                 }
-            }
-            finally
-            {
-                ImGui.End();
-                ImGui.PopStyleVar(3);
+                finally
+                {
+                    ImGui.End();
+                    ImGui.PopStyleVar(3);
+                }
             }
         }
 
