@@ -40,7 +40,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            MCHGauge gauge = Singletons.Get<IJobGauges>().Get<MCHGauge>();
+            MCHGauge gauge = Singletons.JobGauges.Get<MCHGauge>();
 
             _dataSource.Heat = gauge.Heat;
             _dataSource.Overheat = gauge.IsOverheated;

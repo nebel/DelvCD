@@ -177,7 +177,7 @@ namespace DelvCD.Config
 
         private void EditLabel(Label label)
         {
-            Singletons.Get<PluginManager>().Edit(label);
+            Singletons.PluginManager.Edit(label);
         }
 
         private void ExportLabel(Label label)

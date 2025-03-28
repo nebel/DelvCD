@@ -34,7 +34,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            WHMGauge gauge = Singletons.Get<IJobGauges>().Get<WHMGauge>();
+            WHMGauge gauge = Singletons.JobGauges.Get<WHMGauge>();
 
             _dataSource.Lily_Timer = gauge.LilyTimer / 1000f;
             _dataSource.Lily_Stacks = gauge.Lily;

@@ -164,7 +164,7 @@ namespace DelvCD.Config
             if (!Fonts.ContainsKey(key))
             {
                 Fonts.Add(key, newFont);
-                Singletons.Get<FontsManager>().UpdateFonts(Fonts.Values);
+                Singletons.FontsManager.UpdateFonts(Fonts.Values);
             }
         }
 
@@ -181,7 +181,7 @@ namespace DelvCD.Config
         private void RemoveFont(string key)
         {
             Fonts.Remove(key);
-            Singletons.Get<FontsManager>().UpdateFonts(Fonts.Values);
+            Singletons.FontsManager.UpdateFonts(Fonts.Values);
         }
     }
 }

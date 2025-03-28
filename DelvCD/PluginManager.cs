@@ -100,8 +100,8 @@ namespace DelvCD
                 {
                     if (ImGui.Begin("DelvCD_Root", _mainWindowFlags))
                     {
-                        Singletons.Get<StatusHelpers>().GenerateStatusMap();
-                        Singletons.Get<ClipRectsHelper>().Update();
+                        Singletons.StatusHelpers.GenerateStatusMap();
+                        Singletons.ClipRectsHelper.Update();
 
                         foreach (UIElement element in Config.ElementList.UIElements)
                         {
@@ -147,7 +147,7 @@ namespace DelvCD
 
         private void OnLogin()
         {
-            Singletons.Get<KeybindHelper>().UpdateKeybindHints();
+            Singletons.KeybindHelper.UpdateKeybindHints();
         }
 
         private void OnLogout(int type, int code)

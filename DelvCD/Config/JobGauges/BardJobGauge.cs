@@ -49,7 +49,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            BRDGauge gauge = Singletons.Get<IJobGauges>().Get<BRDGauge>();
+            BRDGauge gauge = Singletons.JobGauges.Get<BRDGauge>();
 
             _dataSource.Active_Song = _comboOptions[0][_values[0]];
             _dataSource.Last_Active_Song = _comboOptions[0][_values[0]];

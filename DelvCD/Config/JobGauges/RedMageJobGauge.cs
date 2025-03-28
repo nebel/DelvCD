@@ -41,7 +41,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            RDMGauge gauge = Singletons.Get<IJobGauges>().Get<RDMGauge>();
+            RDMGauge gauge = Singletons.JobGauges.Get<RDMGauge>();
 
             _dataSource.White_Mana = gauge.WhiteMana;
             _dataSource.Black_Mana = gauge.BlackMana;

@@ -25,7 +25,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            WARGauge gauge = Singletons.Get<IJobGauges>().Get<WARGauge>();
+            WARGauge gauge = Singletons.JobGauges.Get<WARGauge>();
 
             _dataSource.Wrath = gauge.BeastGauge;
 

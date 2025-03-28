@@ -34,7 +34,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            SCHGauge gauge = Singletons.Get<IJobGauges>().Get<SCHGauge>();
+            SCHGauge gauge = Singletons.JobGauges.Get<SCHGauge>();
 
             _dataSource.Aetherflow_Stacks = gauge.Aetherflow;
             _dataSource.Fairie = gauge.FairyGauge;

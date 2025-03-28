@@ -36,7 +36,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            DRKGauge gauge = Singletons.Get<IJobGauges>().Get<DRKGauge>();
+            DRKGauge gauge = Singletons.JobGauges.Get<DRKGauge>();
 
             _dataSource.Blood = gauge.Blood;
             _dataSource.Darkside_Timer = gauge.DarksideTimeRemaining / 1000f;

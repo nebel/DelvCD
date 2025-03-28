@@ -69,7 +69,7 @@ namespace DelvCD.Config
                 return false;
             }
 
-            IPlayerCharacter? player = Singletons.Get<IObjectTable>().LocalPlayer;
+            IPlayerCharacter? player = Singletons.ObjectTable.LocalPlayer;
             if (player == null || player.ClassJob.RowId != (uint)_jobGauge.Job)
             {
                 return false;
@@ -81,7 +81,7 @@ namespace DelvCD.Config
             }
             catch (Exception e)
             {
-                Singletons.Get<IPluginLog>().Error(e.Message);
+                Singletons.PluginLog.Error(e.Message);
             }
 
             return false;
@@ -187,7 +187,7 @@ namespace DelvCD.Config
             TriggerName = triggerData.Name.ToString();
             _triggerNameInput = TriggerName;
             TriggerData.Add(triggerData);
-            Singletons.Get<IPluginLog>().Information($"{triggerData.Name}: {triggerData.Icon}");
+            Singletons.PluginLog.Information($"{triggerData.Name}: {triggerData.Icon}");
         }
 
 

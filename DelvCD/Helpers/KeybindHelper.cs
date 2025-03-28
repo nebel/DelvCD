@@ -18,7 +18,7 @@ public unsafe class KeybindHelper
 
     public KeybindHelper()
     {
-        Singletons.Get<IClientState>().ClassJobChanged += OnJobChanged;
+        Singletons.ClientState.ClassJobChanged += OnJobChanged;
     }
 
     public static void Initialize() { Instance = new KeybindHelper(); }
@@ -40,7 +40,7 @@ public unsafe class KeybindHelper
             return;
         }
 
-        Singletons.Get<IClientState>().ClassJobChanged -= OnJobChanged;
+        Singletons.ClientState.ClassJobChanged -= OnJobChanged;
         Instance = null!;
     }
 
@@ -84,7 +84,7 @@ public unsafe class KeybindHelper
     }
 
     public void UpdateKeybindHints() {
-        IGameGui gameGui = Singletons.Get<IGameGui>();
+        IGameGui gameGui = Singletons.GameGui;
 
         foreach (string? addonName in _actionBars) {
             string? nameToUse = addonName;

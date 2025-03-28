@@ -57,7 +57,7 @@ namespace DelvCD.Config.JobGauges
 
         public override unsafe bool IsTriggered(bool preview)
         {
-            BLMGauge _gauge = Singletons.Get<IJobGauges>().Get<BLMGauge>();
+            BLMGauge _gauge = Singletons.JobGauges.Get<BLMGauge>();
             BlackMageGaugeTmp* gauge = (BlackMageGaugeTmp*)_gauge.Address;
 
             _dataSource.Enochian = gauge->EnochianActive;
@@ -71,7 +71,7 @@ namespace DelvCD.Config.JobGauges
             _dataSource.Paradox = gauge->ParadoxActive;
             _dataSource.Astral_Soul_Stacks = gauge->AstralSoulStacks;
 
-            IPlayerCharacter? player = Singletons.Get<IObjectTable>().LocalPlayer;
+            IPlayerCharacter? player = Singletons.ObjectTable.LocalPlayer;
             _dataSource.Max_Polyglot_Stacks = player == null ? 2 : (player.Level < 80 ? 1 : ((player.Level < 98 ? 2 : 3)));
 
             if (preview) { return true; }

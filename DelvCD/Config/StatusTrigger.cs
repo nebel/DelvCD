@@ -68,7 +68,7 @@ namespace DelvCD.Config
                 return true;
             }
 
-            IPlayerCharacter? player = Singletons.Get<IObjectTable>().LocalPlayer;
+            IPlayerCharacter? player = Singletons.ObjectTable.LocalPlayer;
             if (player is null)
             {
                 return false;
@@ -79,7 +79,7 @@ namespace DelvCD.Config
                 TriggerSource.Player => player,
                 TriggerSource.Target => Utils.FindTarget(),
                 TriggerSource.TargetOfTarget => Utils.FindTargetOfTarget(),
-                TriggerSource.FocusTarget => Singletons.Get<ITargetManager>().FocusTarget,
+                TriggerSource.FocusTarget => Singletons.TargetManager.FocusTarget,
                 _ => null
             };
 
@@ -97,7 +97,7 @@ namespace DelvCD.Config
             bool active = false;
             _dataSource.Icon = TriggerData.First().Icon;
 
-            StatusHelpers helper = Singletons.Get<StatusHelpers>();
+            StatusHelpers helper = Singletons.StatusHelpers;
             foreach (TriggerData trigger in TriggerData)
             {
                 var statusList = helper.GetStatusList(Source, trigger.Id);

@@ -142,9 +142,9 @@ namespace DelvCD.UIElements
             Vector2 localPos = pos + style.Position;
             Vector2 size = style.Size;
 
-            if (Singletons.Get<PluginManager>().ShouldClip())
+            if (Singletons.PluginManager.ShouldClip())
             {
-                ClipRect? clipRect = Singletons.Get<ClipRectsHelper>().GetClipRectForArea(localPos, size);
+                ClipRect? clipRect = Singletons.ClipRectsHelper.GetClipRectForArea(localPos, size);
                 if (clipRect.HasValue)
                 {
                     return false;

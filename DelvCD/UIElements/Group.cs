@@ -77,7 +77,7 @@ namespace DelvCD.UIElements
                     element.Preview |= Preview;
                 }
 
-                if (visible || Singletons.Get<PluginManager>().IsConfigOpen())
+                if (visible || Singletons.PluginManager.IsConfigOpen())
                 {
                     Vector2 eleOffset = GroupConfig.IsDynamic ? GroupConfig.DynamicOffset : Vector2.Zero;
                     Vector2 localPos = GroupConfig.Position;

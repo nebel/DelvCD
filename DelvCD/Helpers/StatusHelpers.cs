@@ -44,7 +44,7 @@ namespace DelvCD.Helpers
                 dict.Clear();
             }
 
-            IPlayerCharacter? player = Singletons.Get<IObjectTable>().LocalPlayer;
+            IPlayerCharacter? player = Singletons.ObjectTable.LocalPlayer;
             if (player is null)
             {
                 return;
@@ -57,7 +57,7 @@ namespace DelvCD.Helpers
                     TriggerSource.Player => player,
                     TriggerSource.Target => Utils.FindTarget(),
                     TriggerSource.TargetOfTarget => Utils.FindTargetOfTarget(),
-                    TriggerSource.FocusTarget => Singletons.Get<ITargetManager>().FocusTarget,
+                    TriggerSource.FocusTarget => Singletons.TargetManager.FocusTarget,
                     _ => null
                 };
 
@@ -83,7 +83,7 @@ namespace DelvCD.Helpers
 
         public static List<TriggerData> FindStatusEntries(string input)
         {
-            ExcelSheet<LuminaStatus>? sheet = Singletons.Get<IDataManager>().GetExcelSheet<LuminaStatus>();
+            ExcelSheet<LuminaStatus>? sheet = Singletons.DataManager.GetExcelSheet<LuminaStatus>();
             List<TriggerData> statusList = new List<TriggerData>();
 
             if (string.IsNullOrEmpty(input) || sheet is null) { return statusList; }

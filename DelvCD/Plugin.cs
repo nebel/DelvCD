@@ -65,29 +65,29 @@ namespace DelvCD
             ConfigHelpers.CheckVersion();
 
             // Register Dalamud APIs
-            Singletons.Register(buddyList);
-            Singletons.Register(clientState);
-            Singletons.Register(commandManager);
-            Singletons.Register(condition);
-            Singletons.Register(pluginInterface);
-            Singletons.Register(dataManager);
-            Singletons.Register(framework);
-            Singletons.Register(gameGui);
-            Singletons.Register(jobGauges);
-            Singletons.Register(objectTable);
-            Singletons.Register(partyList);
-            Singletons.Register(sigScanner);
-            Singletons.Register(targetManager);
-            Singletons.Register(pluginInterface.UiBuilder);
-            Singletons.Register(logger);
-            Singletons.Register(textureProvider);
-            Singletons.Register(textureSubstitutionProvider);
-            Singletons.Register(notificationManager);
-            Singletons.Register(new TexturesCache());
-            Singletons.Register(new ActionHelpers());
-            Singletons.Register(new StatusHelpers());
-            Singletons.Register(new ClipRectsHelper());
-            Singletons.Register(new KeybindHelper());
+            Singletons.BuddyList = buddyList;
+            Singletons.ClientState = clientState;
+            Singletons.CommandManager = commandManager;
+            Singletons.Condition = condition;
+            Singletons.DalamudPluginInterface = pluginInterface;
+            Singletons.DataManager = dataManager;
+            Singletons.Framework = framework;
+            Singletons.GameGui = gameGui;
+            Singletons.JobGauges = jobGauges;
+            Singletons.ObjectTable = objectTable;
+            Singletons.PartyList = partyList;
+            Singletons.SigScanner = sigScanner;
+            Singletons.TargetManager = targetManager;
+            Singletons.UiBuilder = pluginInterface.UiBuilder;
+            Singletons.PluginLog = logger;
+            Singletons.TextureProvider = textureProvider;
+            Singletons.TextureSubstitutionProvider = textureSubstitutionProvider;
+            Singletons.NotificationManager = notificationManager;
+            Singletons.TexturesCache = new TexturesCache();
+            Singletons.ActionHelpers = new ActionHelpers();
+            Singletons.StatusHelpers = new StatusHelpers();
+            Singletons.ClipRectsHelper = new ClipRectsHelper();
+            Singletons.KeybindHelper = new KeybindHelper();
 
             // Load Icon
             Plugin.IconTexture = LoadIconTexture(textureProvider);
@@ -97,20 +97,20 @@ namespace DelvCD
 
             // Load config
             DelvCDConfig config = ConfigHelpers.LoadConfig(Plugin.ConfigFilePath);
-            Singletons.Register(config);
+            Singletons.DelvCDConfig = config;
 
             // Initialize Fonts
             FontsManager.CopyPluginFontsToUserPath();
-            Singletons.Register(new FontsManager(pluginInterface.UiBuilder, config.FontConfig.Fonts.Values));
+            Singletons.FontsManager = new FontsManager(pluginInterface.UiBuilder, config.FontConfig.Fonts.Values);
 
             // Initialize Text Tags
             TextTagFormatter.InitializeTextTags();
 
             // Start the plugin
-            Singletons.Register(new PluginManager(clientState, commandManager, pluginInterface, config));
+            Singletons.PluginManager = new PluginManager(clientState, commandManager, pluginInterface, config);
             
             // Update Keybind Hints
-            Singletons.Get<KeybindHelper>().UpdateKeybindHints();
+            Singletons.KeybindHelper.UpdateKeybindHints();
         }
 
         private static IDalamudTextureWrap? LoadIconTexture(ITextureProvider textureProvider)
@@ -133,7 +133,7 @@ namespace DelvCD
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Warning($"Failed to load DelvCD Icon {ex.ToString()}");
+                Singletons.PluginLog.Warning($"Failed to load DelvCD Icon {ex.ToString()}");
             }
 
             return texture;
@@ -159,7 +159,7 @@ namespace DelvCD
                 }
                 catch (Exception ex)
                 {
-                    Singletons.Get<IPluginLog>().Warning($"Error loading changelog: {ex.ToString()}");
+                    Singletons.PluginLog.Warning($"Error loading changelog: {ex.ToString()}");
                 }
             }
 

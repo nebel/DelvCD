@@ -32,7 +32,7 @@ namespace DelvCD.Helpers
 
         public static IGameObject? FindTarget()
         {
-            ITargetManager targetManager = Singletons.Get<ITargetManager>();
+            ITargetManager targetManager = Singletons.TargetManager;
             return targetManager.SoftTarget ?? targetManager.Target;
         }
 
@@ -44,7 +44,7 @@ namespace DelvCD.Helpers
                 return null;
             }
 
-            IGameObject? player = Singletons.Get<IObjectTable>().LocalPlayer;
+            IGameObject? player = Singletons.ObjectTable.LocalPlayer;
             if (target.TargetObjectId == 0 && player is not null && player.TargetObjectId == 0)
             {
                 return player;
@@ -52,7 +52,7 @@ namespace DelvCD.Helpers
 
             // only the first 200 elements in the array are relevant due to the order in which SE packs data into the array
             // we do a step of 2 because its always an actor followed by its companion
-            IObjectTable objectTable = Singletons.Get<IObjectTable>();
+            IObjectTable objectTable = Singletons.ObjectTable;
             for (int i = 0; i < 200; i += 2)
             {
                 IGameObject? actor = objectTable[i];
@@ -136,7 +136,7 @@ namespace DelvCD.Helpers
                 }
                 catch (Exception e)
                 {
-                    Singletons.Get<IPluginLog>().Error("Error trying to open url: " + e.Message);
+                    Singletons.PluginLog.Error("Error trying to open url: " + e.Message);
                 }
             }
         }

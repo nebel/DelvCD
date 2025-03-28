@@ -97,10 +97,10 @@ namespace DelvCD.Config
 
             IGameObject? actor = TriggerSource switch
             {
-                TriggerSource.Player => Singletons.Get<IObjectTable>().LocalPlayer,
+                TriggerSource.Player => Singletons.ObjectTable.LocalPlayer,
                 TriggerSource.Target => Utils.FindTarget(),
                 TriggerSource.TargetOfTarget => Utils.FindTargetOfTarget(),
-                TriggerSource.FocusTarget => Singletons.Get<ITargetManager>().FocusTarget,
+                TriggerSource.FocusTarget => Singletons.TargetManager.FocusTarget,
                 _ => null
             };
 
@@ -110,7 +110,7 @@ namespace DelvCD.Config
             }
             
             _dataSource.Name = actor.Name.ToString();
-            var player = Singletons.Get<IObjectTable>().LocalPlayer;
+            var player = Singletons.ObjectTable.LocalPlayer;
             if (player is not null)
             {
                 Vector3 delta = player.Position - actor.Position;
@@ -133,7 +133,7 @@ namespace DelvCD.Config
                 _dataSource.Shield = (float)Math.Round(_dataSource.MaxHp / 100 * _dataSource.ShieldPercent);
                 _dataSource.MaxShield = _dataSource.MaxHp;
                 _dataSource.HasPet = TriggerSource == TriggerSource.Player &&
-                    Singletons.Get<IBuddyList>().PetBuddy != null;
+                    Singletons.BuddyList.PetBuddy != null;
 
                 unsafe
                 {

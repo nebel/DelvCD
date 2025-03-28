@@ -38,7 +38,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            SAMGauge gauge = Singletons.Get<IJobGauges>().Get<SAMGauge>();
+            SAMGauge gauge = Singletons.JobGauges.Get<SAMGauge>();
 
             _dataSource.Setsu = gauge.HasSetsu;
             _dataSource.Getsu = gauge.HasGetsu;

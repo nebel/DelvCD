@@ -47,7 +47,7 @@ namespace DelvCD.Config
                 return true;
             }
 
-            ActionHelpers helper = Singletons.Get<ActionHelpers>();
+            ActionHelpers helper = Singletons.ActionHelpers;
             TriggerData actionTrigger = TriggerData.First();
             helper.GetItemRecastInfo(actionTrigger.Id, out RecastInfo recastInfo);
 
@@ -59,7 +59,7 @@ namespace DelvCD.Config
             _dataSource.Item_Cooldown_Stacks = GetQuantity(actionTrigger.Id);
             _dataSource.Max_Item_Cooldown_Stacks = _dataSource.Item_Cooldown_Stacks;
             
-            KeybindHelper keybindHelper = Singletons.Get<KeybindHelper>();
+            KeybindHelper keybindHelper = Singletons.KeybindHelper;
             _dataSource.Item_Keybind = keybindHelper.GetKeybindHint(actionTrigger.Id, KeybindHelper.KeybindType.Item);
             _dataSource.Item_Keybind_Formatted = keybindHelper.GetKeybindHintFormatted(actionTrigger.Id, KeybindHelper.KeybindType.Item);
 
@@ -165,7 +165,7 @@ namespace DelvCD.Config
             TriggerName = triggerData.Name.ToString();
             _triggerNameInput = TriggerName;
             TriggerData.Add(triggerData);
-            Singletons.Get<IPluginLog>().Information($"{triggerData.Name}: {triggerData.Icon}");
+            Singletons.PluginLog.Information($"{triggerData.Name}: {triggerData.Icon}");
         }
     }
 }

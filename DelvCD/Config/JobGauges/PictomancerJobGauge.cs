@@ -52,7 +52,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            PCTGauge gauge = Singletons.Get<IJobGauges>().Get<PCTGauge>();
+            PCTGauge gauge = Singletons.JobGauges.Get<PCTGauge>();
 
             _dataSource.Pallete = gauge.PalleteGauge;
             _dataSource.Paint = gauge.Paint;
