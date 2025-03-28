@@ -12,10 +12,22 @@ namespace DelvCD.Helpers
     {
         private List<ClipRect> _clipRects = new List<ClipRect>();
 
-        private static List<string> _ignoredAddonNames = new List<string>()
+        private static List<byte[]> _ignoredAddonNames = new List<byte[]>()
         {
-            "_FocusTargetInfo",
+            "_FocusTargetInfo"u8.ToArray(),
         };
+
+        public static bool IsIgnored(Span<byte> s)
+        {
+            foreach (byte[] ignored in _ignoredAddonNames)
+            {
+                if (s.SequenceEqual(ignored))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public unsafe void Update()
         {
@@ -28,7 +40,8 @@ namespace DelvCD.Helpers
             if (manager == null) { return; }
 
             AtkUnitList* loadedUnitsList = &manager->AtkUnitManager.AllLoadedUnitsList;
-            if (loadedUnitsList == null) { return; }
+
+            Vector2 screenSize = ImGui.GetMainViewport().Size;
 
             for (var i = 0; i < loadedUnitsList->Count; i++)
             {
@@ -40,8 +53,8 @@ namespace DelvCD.Helpers
                         continue;
                     }
 
-                    string name = addon->NameString;
-                    if (_ignoredAddonNames.Contains(name))
+                    Span<byte> name = addon->Name;
+                    if (IsIgnored(name))
                     {
                         continue;
                     }
@@ -51,24 +64,24 @@ namespace DelvCD.Helpers
 
                     Vector2 pos = new Vector2(addon->X + margin, addon->Y + margin);
                     Vector2 size = new Vector2(
-                        addon->WindowNode->AtkResNode.Width * addon->Scale - margin,
-                        addon->WindowNode->AtkResNode.Height * addon->Scale - bottomMargin
+                        addon->WindowNode->Width * addon->Scale - margin,
+                        addon->WindowNode->Height * addon->Scale - bottomMargin
                     );
                     
                     // special case for duty finder
-                    if (name == "ContentsFinder")
+                    if (name.SequenceEqual("ContentsFinder"u8))
                     {
                         size.X += size.X + (16 * addon->Scale);
                         size.Y += (30 * addon->Scale);
                     }
                     
-                    if (name == "Journal")
+                    if (name.SequenceEqual("Journal"u8))
                     {
                         size.X += size.X + (16 * addon->Scale);
                     }
 
                     // just in case this causes weird issues / crashes (doubt it though...)
-                    ClipRect clipRect = new ClipRect(pos, pos + size);
+                    ClipRect clipRect = new ClipRect(pos, pos + size, screenSize);
                     if (clipRect.Max.X < clipRect.Min.X || clipRect.Max.Y < clipRect.Min.Y)
                     {
                         continue;
@@ -82,7 +95,7 @@ namespace DelvCD.Helpers
 
         public ClipRect? GetClipRectForArea(Vector2 pos, Vector2 size)
         {
-            var area = new ClipRect(pos, pos + size);
+            var area = new ClipRect(pos, pos + size, ImGui.GetMainViewport().Size);
             foreach (ClipRect clipRect in _clipRects)
             {
                 if (clipRect.IntersectsWith(area))
@@ -108,15 +121,13 @@ namespace DelvCD.Helpers
         }
     }
 
-    public struct ClipRect
+    public readonly struct ClipRect
     {
         public readonly Vector2 Min;
         public readonly Vector2 Max;
 
-        public ClipRect(Vector2 min, Vector2 max)
+        public ClipRect(Vector2 min, Vector2 max, Vector2 screenSize)
         {
-            var screenSize = ImGui.GetMainViewport().Size;
-
             Min = Clamp(min, Vector2.Zero, screenSize);
             Max = Clamp(max, Vector2.Zero, screenSize);
         }
