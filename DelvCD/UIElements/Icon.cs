@@ -122,7 +122,7 @@ namespace DelvCD.UIElements
 
         public override bool Draw(Vector2 pos, Vector2? parentSize = null, bool parentVisible = true)
         {
-            if (!TriggerConfig.TriggerOptions.Any())
+            if (TriggerConfig.TriggerOptions.Count == 0)
             {
                 return false;
             }

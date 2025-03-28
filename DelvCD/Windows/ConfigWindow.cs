@@ -51,7 +51,7 @@ namespace DelvCD.Windows
 
         public bool IsConfigurableOpen(IConfigurable configurable)
         {
-            if (!IsOpen || !_configStack.Any())
+            if (!IsOpen || _configStack.Count == 0)
             {
                 return false;
             }
@@ -61,7 +61,7 @@ namespace DelvCD.Windows
 
         public override void PreDraw()
         {
-            if (_configStack.Any())
+            if (_configStack.Count != 0)
             {
                 WindowName = GetWindowTitle();
                 ImGui.SetNextWindowSize(_windowSize);
@@ -70,7 +70,7 @@ namespace DelvCD.Windows
 
         public override void Draw()
         {
-            if (!_configStack.Any())
+            if (_configStack.Count == 0)
             {
                 IsOpen = false;
                 return;
@@ -196,7 +196,7 @@ namespace DelvCD.Windows
 
         private void Rename(string name)
         {
-            if (_configStack.Any())
+            if (_configStack.Count != 0)
             {
                 _configStack.Peek().Name = name;
             }
