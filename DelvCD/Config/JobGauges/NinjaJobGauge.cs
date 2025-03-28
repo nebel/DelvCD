@@ -33,7 +33,7 @@ namespace DelvCD.Config.JobGauges
 
         public override unsafe bool IsTriggered(bool preview)
         {
-            NinjaGauge* gauge = (NinjaGauge*)Singletons.Get<IJobGauges>().Address;
+            NinjaGauge* gauge = (NinjaGauge*)Singletons.JobGauges.Address;
 
             _dataSource.Kazematoi = gauge->Kazematoi;
             _dataSource.Ninki = gauge->Ninki;

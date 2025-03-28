@@ -38,7 +38,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            RPRGauge gauge = Singletons.Get<IJobGauges>().Get<RPRGauge>();
+            RPRGauge gauge = Singletons.JobGauges.Get<RPRGauge>();
 
             _dataSource.Soul = gauge.Soul;
             _dataSource.Shroud = gauge.Shroud;

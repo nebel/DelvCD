@@ -69,7 +69,7 @@ namespace DelvCD.Helpers
             }
 
             ushort icon = 0;
-            ExcelSheet<LuminaAction> sheet = Singletons.Get<IDataManager>().GetExcelSheet<LuminaAction>();
+            ExcelSheet<LuminaAction> sheet = Singletons.DataManager.GetExcelSheet<LuminaAction>();
             if (sheet.TryGetRow(actionId, out LuminaAction row))
             {
                 icon = row.Icon;
@@ -90,7 +90,7 @@ namespace DelvCD.Helpers
 
         public string? GetNameForAction(uint actionId)
         {
-            var sheet = Singletons.Get<IDataManager>().GetExcelSheet<LuminaAction>();
+            var sheet = Singletons.DataManager.GetExcelSheet<LuminaAction>();
             if (sheet.TryGetRow(actionId, out LuminaAction row))
             {
                 return row.Name.ToString();
@@ -199,7 +199,7 @@ namespace DelvCD.Helpers
 
         public static List<TriggerData> FindItemEntries(string input)
         {
-            ExcelSheet<Item>? sheet = Singletons.Get<IDataManager>().GetExcelSheet<Item>();
+            ExcelSheet<Item>? sheet = Singletons.DataManager.GetExcelSheet<Item>();
 
             if (!string.IsNullOrEmpty(input) && sheet is not null)
             {
@@ -249,7 +249,7 @@ namespace DelvCD.Helpers
         public static List<TriggerData> FindEntriesFromActionSheet(string input)
         {
             List<TriggerData> actionList = new List<TriggerData>();
-            ExcelSheet<LuminaAction>? actionSheet = Singletons.Get<IDataManager>().GetExcelSheet<LuminaAction>();
+            ExcelSheet<LuminaAction>? actionSheet = Singletons.DataManager.GetExcelSheet<LuminaAction>();
 
             if (actionSheet is null)
             {
@@ -305,7 +305,7 @@ namespace DelvCD.Helpers
         public static List<TriggerData> FindEntriesFromActionIndirectionSheet(string input)
         {
             List<TriggerData> actionList = new List<TriggerData>();
-            ExcelSheet<ActionIndirection>? actionIndirectionSheet = Singletons.Get<IDataManager>().GetExcelSheet<ActionIndirection>();
+            ExcelSheet<ActionIndirection>? actionIndirectionSheet = Singletons.DataManager.GetExcelSheet<ActionIndirection>();
 
             if (actionIndirectionSheet is null)
             {
@@ -363,7 +363,7 @@ namespace DelvCD.Helpers
         public static List<TriggerData> FindEntriesFromGeneralActionSheet(string input)
         {
             List<TriggerData> actionList = new List<TriggerData>();
-            ExcelSheet<GeneralAction>? generalSheet = Singletons.Get<IDataManager>().GetExcelSheet<GeneralAction>();
+            ExcelSheet<GeneralAction>? generalSheet = Singletons.DataManager.GetExcelSheet<GeneralAction>();
 
             if (generalSheet is null)
             {
@@ -429,7 +429,7 @@ namespace DelvCD.Helpers
             }
 
             List<uint> comboIds = new List<uint>() { baseComboId };
-            ExcelSheet<ActionIndirection>? actionIndirectionSheet = Singletons.Get<IDataManager>().GetExcelSheet<ActionIndirection>();
+            ExcelSheet<ActionIndirection>? actionIndirectionSheet = Singletons.DataManager.GetExcelSheet<ActionIndirection>();
 
             if (actionIndirectionSheet is null)
             {
@@ -458,7 +458,7 @@ namespace DelvCD.Helpers
                 return;
             }
 
-            var helper = Singletons.Get<ActionHelpers>();
+            var helper = Singletons.ActionHelpers;
             helper.GetAdjustedRecastInfo(helper.GetAdjustedActionId(actionId), out recastInfo);
         }
     }

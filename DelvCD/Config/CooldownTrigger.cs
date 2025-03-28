@@ -80,7 +80,7 @@ namespace DelvCD.Config
                 return false;
             }
 
-            ActionHelpers helper = Singletons.Get<ActionHelpers>();
+            ActionHelpers helper = Singletons.ActionHelpers;
             uint actionId = Adjust ? helper.GetAdjustedActionId(actionTrigger.Id) : actionTrigger.Id;
             helper.GetAdjustedRecastInfo(actionId, out RecastInfo recastInfo);
 
@@ -109,12 +109,12 @@ namespace DelvCD.Config
 
             if (RangeCheck)
             {
-                inRange = helper.GetActionInRange(actionId, Singletons.Get<IClientState>().LocalPlayer, Utils.FindTarget());
+                inRange = helper.GetActionInRange(actionId, Singletons.ClientState.LocalPlayer, Utils.FindTarget());
             }
 
             if (LosCheck)
             {
-                inLos = helper.IsTargetInLos(Singletons.Get<IClientState>().LocalPlayer, Utils.FindTarget(), actionId);
+                inLos = helper.IsTargetInLos(Singletons.ClientState.LocalPlayer, Utils.FindTarget(), actionId);
             }
 
             if (HighlightCheck)
@@ -145,7 +145,7 @@ namespace DelvCD.Config
             _dataSource.Name = Adjust ? helper.GetAdjustedActionName(actionId) : actionTrigger.Name;
             
             
-            KeybindHelper keybindHelper = Singletons.Get<KeybindHelper>();
+            KeybindHelper keybindHelper = Singletons.KeybindHelper;
             _dataSource.Keybind = keybindHelper.GetKeybindHint(actionTrigger.Id, KeybindHelper.KeybindType.Action);
             _dataSource.Keybind_Formatted = keybindHelper.GetKeybindHintFormatted(actionTrigger.Id, KeybindHelper.KeybindType.Action);
 

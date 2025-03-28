@@ -25,7 +25,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            GNBGauge gauge = Singletons.Get<IJobGauges>().Get<GNBGauge>();
+            GNBGauge gauge = Singletons.JobGauges.Get<GNBGauge>();
 
             _dataSource.Cartridges = gauge.Ammo;
 

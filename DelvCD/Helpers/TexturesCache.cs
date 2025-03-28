@@ -28,7 +28,7 @@ namespace DelvCD.Helpers
             {
                 try
                 {
-                    return Singletons.Get<ITextureProvider>().GetFromGameIcon(iconId + stackCount).GetWrapOrDefault();
+                    return Singletons.TextureProvider.GetFromGameIcon(iconId + stackCount).GetWrapOrDefault();
                 } catch {
                     return null;
                 }
@@ -41,10 +41,10 @@ namespace DelvCD.Helpers
 
             try
             {
-                string? path = Singletons.Get<ITextureProvider>().GetIconPath(new GameIconLookup(iconId: iconId, hiRes: hdIcon));
+                string? path = Singletons.TextureProvider.GetIconPath(new GameIconLookup(iconId: iconId, hiRes: hdIcon));
                 if (path != null)
                 {
-                    path = Singletons.Get<ITextureSubstitutionProvider>().GetSubstitutedPath(path);
+                    path = Singletons.TextureSubstitutionProvider.GetSubstitutedPath(path);
                     IDalamudTextureWrap? texture = GetDesaturatedTextureWrap(path);
                     if (texture != null)
                     {
@@ -62,13 +62,13 @@ namespace DelvCD.Helpers
 
         private static IDalamudTextureWrap? GetDesaturatedTextureWrap(string path)
         {
-            TexFile? file = Singletons.Get<IDataManager>().GetFile<TexFile>(path);
+            TexFile? file = Singletons.DataManager.GetFile<TexFile>(path);
             if (file == null) { return null; }
 
             byte[] bytes = file.GetRgbaImageData();
             ConvertBytes(ref bytes);
 
-            return Singletons.Get<ITextureProvider>().CreateFromRaw(RawImageSpecification.Rgba32(file.Header.Width, file.Header.Height), bytes);
+            return Singletons.TextureProvider.CreateFromRaw(RawImageSpecification.Rgba32(file.Header.Width, file.Header.Height), bytes);
         }
 
         private static void ConvertBytes(ref byte[] bytes)

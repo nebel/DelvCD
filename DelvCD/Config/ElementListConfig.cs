@@ -195,7 +195,7 @@ namespace DelvCD.Config
 
         private void EditUIElement(UIElement element)
         {
-            Singletons.Get<PluginManager>().Edit(element);
+            Singletons.PluginManager.Edit(element);
         }
 
         private void DeleteUIElement(UIElement element)

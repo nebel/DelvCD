@@ -62,7 +62,7 @@ namespace DelvCD.Config
                 TriggerDataOp.LessThanEq => value <= Value,
                 TriggerDataOp.GreaterThanEq => value >= Value,
                 _ => false
-            } || Singletons.Get<PluginManager>().IsConfigurableOpen(this);
+            } || Singletons.PluginManager.IsConfigurableOpen(this);
         }
 
         public void UpdateDataSources(DataSource[] dataSources, bool needsDataSourceCheck = false)
@@ -298,7 +298,7 @@ namespace DelvCD.Config
             {
                 ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 1f * _scale);
                 Vector2 buttonSize = new(30 * _scale, 0);
-                DrawHelpers.DrawButton(string.Empty, FontAwesomeIcon.Pen, () => Singletons.Get<PluginManager>().Edit(condition), "Edit Style", buttonSize);
+                DrawHelpers.DrawButton(string.Empty, FontAwesomeIcon.Pen, () => Singletons.PluginManager.Edit(condition), "Edit Style", buttonSize);
 
                 if (Conditions.Count > 1)
                 {

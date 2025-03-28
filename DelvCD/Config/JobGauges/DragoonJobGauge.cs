@@ -36,7 +36,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            DRGGauge gauge = Singletons.Get<IJobGauges>().Get<DRGGauge>();
+            DRGGauge gauge = Singletons.JobGauges.Get<DRGGauge>();
 
             _dataSource.Life_Of_The_Dragon = gauge.IsLOTDActive;
             _dataSource.Life_Of_The_Dragon_Timer = gauge.LOTDTimer / 1000f;

@@ -65,7 +65,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            DNCGauge gauge = Singletons.Get<IJobGauges>().Get<DNCGauge>();
+            DNCGauge gauge = Singletons.JobGauges.Get<DNCGauge>();
 
             _dataSource.Feather_Stacks = gauge.Feathers;
             _dataSource.Esprit = gauge.Esprit;

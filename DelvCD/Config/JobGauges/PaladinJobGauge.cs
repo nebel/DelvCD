@@ -25,7 +25,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            PLDGauge gauge = Singletons.Get<IJobGauges>().Get<PLDGauge>();
+            PLDGauge gauge = Singletons.JobGauges.Get<PLDGauge>();
 
             _dataSource.Oath = gauge.OathGauge;
 

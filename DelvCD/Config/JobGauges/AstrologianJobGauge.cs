@@ -46,7 +46,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            ASTGauge gauge = Singletons.Get<IJobGauges>().Get<ASTGauge>();
+            ASTGauge gauge = Singletons.JobGauges.Get<ASTGauge>();
 
             int card1 = GetCard1Index();
             int card2 = GetCard2Index();

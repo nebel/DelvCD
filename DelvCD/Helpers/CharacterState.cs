@@ -15,7 +15,7 @@ namespace DelvCD.Helpers
 
         public static bool IsCharacterBusy()
         {
-            ICondition condition = Singletons.Get<ICondition>();
+            ICondition condition = Singletons.Condition;
             return condition[ConditionFlag.WatchingCutscene] ||
                 condition[ConditionFlag.WatchingCutscene78] ||
                 condition[ConditionFlag.OccupiedInCutSceneEvent] ||
@@ -29,36 +29,36 @@ namespace DelvCD.Helpers
 
         public static bool IsInCombat()
         {
-            ICondition condition = Singletons.Get<ICondition>();
+            ICondition condition = Singletons.Condition;
             return condition[ConditionFlag.InCombat];
         }
 
         public static bool IsInDuty()
         {
-            ICondition condition = Singletons.Get<ICondition>();
+            ICondition condition = Singletons.Condition;
             return condition[ConditionFlag.BoundByDuty];
         }
 
         public static bool IsPerforming()
         {
-            ICondition condition = Singletons.Get<ICondition>();
+            ICondition condition = Singletons.Condition;
             return condition[ConditionFlag.Performing];
         }
 
         public static bool IsInPvP()
         {
-            var clientState = Singletons.Get<IClientState>();
+            var clientState = Singletons.ClientState;
             return clientState.IsPvP || clientState.TerritoryType == 250;
         }
 
         public static bool IsInGoldenSaucer()
         {
-            return _goldenSaucerIDs.Any(id => id == Singletons.Get<IClientState>().TerritoryType);
+            return _goldenSaucerIDs.Any(id => id == Singletons.ClientState.TerritoryType);
         }
 
         public static Job GetCharacterJob()
         {
-            var player = Singletons.Get<IClientState>().LocalPlayer;
+            var player = Singletons.ClientState.LocalPlayer;
             if (player is null)
             {
                 return Job.UKN;
@@ -72,23 +72,23 @@ namespace DelvCD.Helpers
 
         public static int GetCharacterLevel()
         {
-            return Singletons.Get<IClientState>().LocalPlayer?.Level ?? 0;
+            return Singletons.ClientState.LocalPlayer?.Level ?? 0;
         }
 
         public static bool IsWeaponDrawn()
         {
-            var player = Singletons.Get<IClientState>().LocalPlayer;
+            var player = Singletons.ClientState.LocalPlayer;
             return player != null && player.StatusFlags.HasFlag(StatusFlags.WeaponOut);
         }
 
         public static unsafe bool ShouldBeVisible()
         {
-            if (Singletons.Get<IClientState>().LocalPlayer == null || IsCharacterBusy())
+            if (Singletons.ClientState.LocalPlayer == null || IsCharacterBusy())
             {
                 return false;
             }
 
-            var gameGui = Singletons.Get<IGameGui>();
+            var gameGui = Singletons.GameGui;
             var parameterWidget = (AtkUnitBase*)gameGui.GetAddonByName("_ParameterWidget", 1);
             var fadeMiddleWidget = (AtkUnitBase*)gameGui.GetAddonByName("FadeMiddle", 1);
             var paramenterVisible = parameterWidget != null && parameterWidget->IsVisible;

@@ -118,8 +118,8 @@ namespace DelvCD.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Singletons.Get<IPluginLog>().Error($"Failed to load font from path [{fontPath}]!");
-                    Singletons.Get<IPluginLog>().Error(ex.ToString());
+                    Singletons.PluginLog.Error($"Failed to load font from path [{fontPath}]!");
+                    Singletons.PluginLog.Error(ex.ToString());
                 }
             }
 
@@ -168,7 +168,7 @@ namespace DelvCD.Helpers
 
         public static int GetFontIndex(string fontKey)
         {
-            var manager = Singletons.Get<FontsManager>();
+            var manager = Singletons.FontsManager;
             for (var i = 0; i < manager._fontList.Length; i++)
             {
                 if (manager._fontList[i].Equals(fontKey))
@@ -189,7 +189,7 @@ namespace DelvCD.Helpers
         {
             if (!string.IsNullOrEmpty(fontKey))
             {
-                if (Singletons.Get<FontsManager>()._imGuiFonts.TryGetValue(fontKey, out var fontHandle))
+                if (Singletons.FontsManager._imGuiFonts.TryGetValue(fontKey, out var fontHandle))
                 {
                     return new FontScope(fontHandle);
                 }
@@ -200,7 +200,7 @@ namespace DelvCD.Helpers
 
         public static string[] GetFontList()
         {
-            return Singletons.Get<FontsManager>()._fontList;
+            return Singletons.FontsManager._fontList;
         }
 
         public static string GetFontKey(FontData font)
@@ -227,7 +227,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Warning($"Failed to create User Font Directory {ex}");
+                Singletons.PluginLog.Warning($"Failed to create User Font Directory {ex}");
             }
 
             if (!Directory.Exists(userFontPath))
@@ -264,7 +264,7 @@ namespace DelvCD.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Singletons.Get<IPluginLog>().Warning($"Failed to copy font {font} to User Font Directory: {ex}");
+                    Singletons.PluginLog.Warning($"Failed to copy font {font} to User Font Directory: {ex}");
                 }
             }
         }

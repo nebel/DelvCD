@@ -70,7 +70,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Error(ex.ToString());
+                Singletons.PluginLog.Error(ex.ToString());
             }
 
             return null;
@@ -114,7 +114,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Error(ex.ToString());
+                Singletons.PluginLog.Error(ex.ToString());
             }
 
             return default;
@@ -171,7 +171,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Error(ex.ToString());
+                Singletons.PluginLog.Error(ex.ToString());
 
                 string backupPath = $"{path}.bak";
                 if (File.Exists(path))
@@ -179,11 +179,11 @@ namespace DelvCD.Helpers
                     try
                     {
                         File.Copy(path, backupPath);
-                        Singletons.Get<IPluginLog>().Information($"Backed up DelvCD config to '{backupPath}'.");
+                        Singletons.PluginLog.Information($"Backed up DelvCD config to '{backupPath}'.");
                     }
                     catch
                     {
-                        Singletons.Get<IPluginLog>().Warning($"Unable to back up DelvCD config.");
+                        Singletons.PluginLog.Warning($"Unable to back up DelvCD config.");
                     }
                 }
             }
@@ -373,7 +373,7 @@ namespace DelvCD.Helpers
 
         public static void SaveConfig()
         {
-            ConfigHelpers.SaveConfig(Singletons.Get<DelvCDConfig>());
+            ConfigHelpers.SaveConfig(Singletons.DelvCDConfig);
         }
 
         public static void SaveConfig(DelvCDConfig config)
@@ -385,7 +385,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Error(ex.ToString());
+                Singletons.PluginLog.Error(ex.ToString());
             }
         }
 
@@ -427,7 +427,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception e)
             {
-                Singletons.Get<IPluginLog>().Error("Error checking version: " + e.Message);
+                Singletons.PluginLog.Error("Error checking version: " + e.Message);
             }
         }
 
@@ -473,8 +473,8 @@ namespace DelvCD.Helpers
             {
                 label = serializer.Deserialize(reader, objectType) as LabelStyleConfig;
                 if (label is not null &&
-                    Singletons.IsRegistered<DelvCDConfig>() &&
-                    Singletons.IsRegistered<FontsManager>())
+                    Singletons.DelvCDConfig != null &&
+                    Singletons.FontsManager != null)
                 {
                     string[] fontOptions = FontsManager.GetFontList();
                     if (!FontsManager.ValidateFont(fontOptions, label.FontID, label.FontKey))
@@ -495,7 +495,7 @@ namespace DelvCD.Helpers
                                 bool cnjp = label.FontKey.Contains("_cnjp");
                                 bool kr = label.FontKey.Contains("_kr");
                                 FontData fontData = new FontData(fontName, fontSize, cnjp, kr);
-                                Singletons.Get<DelvCDConfig>().FontConfig.AddFont(fontData);
+                                Singletons.DelvCDConfig.FontConfig.AddFont(fontData);
                                 break;
                             }
                         }
@@ -504,7 +504,7 @@ namespace DelvCD.Helpers
             }
             catch (Exception ex)
             {
-                Singletons.Get<IPluginLog>().Warning(ex.ToString());
+                Singletons.PluginLog.Warning(ex.ToString());
             }
 
             return label;

@@ -51,7 +51,7 @@ namespace DelvCD.Helpers
                 InitialDuration = TimeSpan.FromMilliseconds(durationInMs)
             };
 
-            Singletons.Get<INotificationManager>().AddNotification(notification);
+            Singletons.NotificationManager.AddNotification(notification);
         }
 
         public static void DrawNestIndicator(int depth)
@@ -85,7 +85,7 @@ namespace DelvCD.Helpers
             float opacity,
             ImDrawListPtr drawList)
         {
-            IDalamudTextureWrap? tex = Singletons.Get<TexturesCache>().GetTextureFromIconId(iconId, (uint)stackCount, true, desaturate);
+            IDalamudTextureWrap? tex = Singletons.TexturesCache.GetTextureFromIconId(iconId, (uint)stackCount, true, desaturate);
 
             if (tex is null)
             {

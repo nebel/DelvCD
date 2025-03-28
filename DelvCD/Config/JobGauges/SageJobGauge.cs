@@ -36,7 +36,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            SGEGauge gauge = Singletons.Get<IJobGauges>().Get<SGEGauge>();
+            SGEGauge gauge = Singletons.JobGauges.Get<SGEGauge>();
 
             _dataSource.Eukrasia = gauge.Eukrasia;
             _dataSource.Addersgall_Timer = gauge.AddersgallTimer / 1000f;

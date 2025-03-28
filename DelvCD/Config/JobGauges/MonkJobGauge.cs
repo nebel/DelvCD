@@ -51,7 +51,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            MNKGauge gauge = Singletons.Get<IJobGauges>().Get<MNKGauge>();
+            MNKGauge gauge = Singletons.JobGauges.Get<MNKGauge>();
 
             _dataSource.Chakra_Stacks = gauge.Chakra;
 
@@ -81,7 +81,7 @@ namespace DelvCD.Config.JobGauges
             _dataSource.Raptor_Stacks = gauge.RaptorFury;
             _dataSource.Coeurl_Stacks = gauge.CoeurlFury;
 
-            IPlayerCharacter? player = Singletons.Get<IClientState>().LocalPlayer;
+            IPlayerCharacter? player = Singletons.ClientState.LocalPlayer;
             _dataSource.Max_Chakra_Stacks = player?.StatusList.FirstOrDefault(s => s.StatusId is 1182 or 2174) != null ? 10 : 5;
 
             if (preview) { return true; }

@@ -229,7 +229,7 @@ namespace DelvCD.Windows
         {
             ConfigHelpers.SaveConfig();
 
-            var config = Singletons.Get<DelvCDConfig>();
+            var config = Singletons.DelvCDConfig;
             foreach (UIElement element in config.ElementList.UIElements)
             {
                 element.StopPreview();

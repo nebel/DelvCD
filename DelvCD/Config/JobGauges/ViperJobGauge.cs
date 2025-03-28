@@ -35,8 +35,8 @@ namespace DelvCD.Config.JobGauges
 
         public override unsafe bool IsTriggered(bool preview)
         {
-            VPRGauge gauge = Singletons.Get<IJobGauges>().Get<VPRGauge>();
-            IPlayerCharacter? player = Singletons.Get<IClientState>().LocalPlayer;
+            VPRGauge gauge = Singletons.JobGauges.Get<VPRGauge>();
+            IPlayerCharacter? player = Singletons.ClientState.LocalPlayer;
 
             _dataSource.Rattling_Coil_Stacks = gauge.RattlingCoilStacks;
             _dataSource.Max_Rattling_Coil_Stacks = player == null || player.Level < 88 ? 2 : 3;

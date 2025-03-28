@@ -67,7 +67,7 @@ namespace DelvCD.Config.JobGauges
 
         public override bool IsTriggered(bool preview)
         {
-            SMNGauge gauge = Singletons.Get<IJobGauges>().Get<SMNGauge>();
+            SMNGauge gauge = Singletons.JobGauges.Get<SMNGauge>();
 
             _dataSource.Aetherflow_Stacks = gauge.AetherflowStacks;
 

@@ -1,53 +1,54 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using Dalamud.Game;
+using Dalamud.Game.ClientState.Objects;
+using Dalamud.Interface;
+using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
+using DelvCD.Config;
+using System.Diagnostics.CodeAnalysis;
 
-namespace DelvCD.Helpers
+namespace DelvCD.Helpers;
+
+public interface IPluginDisposable {
+    void Dispose();
+}
+
+[SuppressMessage("Usage", "CA2211:Non-constant fields should not be visible")]
+public static class Singletons
 {
-    public interface IPluginDisposable { 
-        void Dispose();
-    }
+    public static IBuddyList BuddyList = null!;
+    public static IClientState ClientState = null!;
+    public static ICommandManager CommandManager = null!;
+    public static ICondition Condition = null!;
+    public static IDalamudPluginInterface DalamudPluginInterface = null!;
+    public static IDataManager DataManager = null!;
+    public static IFramework Framework = null!;
+    public static IGameGui GameGui = null!;
+    public static IJobGauges JobGauges = null!;
+    public static IObjectTable ObjectTable = null!;
+    public static IPartyList PartyList = null!;
+    public static ISigScanner SigScanner = null!;
+    public static ITargetManager TargetManager = null!;
+    public static IUiBuilder UiBuilder = null!;
+    public static IPluginLog PluginLog = null!;
+    public static ITextureProvider TextureProvider = null!;
+    public static ITextureSubstitutionProvider TextureSubstitutionProvider = null!;
+    public static INotificationManager NotificationManager = null!;
 
-    public static class Singletons
+    public static TexturesCache TexturesCache = null!;
+    public static ActionHelpers ActionHelpers = null!;
+    public static StatusHelpers StatusHelpers = null!;
+    public static ClipRectsHelper ClipRectsHelper = null!;
+    public static KeybindHelper KeybindHelper = null!;
+    public static DelvCDConfig DelvCDConfig = null!;
+    public static FontsManager FontsManager = null!;
+    public static PluginManager PluginManager = null!;
+
+    public static void Dispose()
     {
-        private static readonly ConcurrentDictionary<Type, object> ActiveInstances = new ConcurrentDictionary<Type, object>();
-
-        public static T Get<T>()
-        {
-            if (ActiveInstances.TryGetValue(typeof(T), out object? o) && o != null) {
-                return (T)o;
-            }
-
-            throw new Exception($"Singleton not initialized '{typeof(T).FullName}'.");
-        }
-
-        public static bool IsRegistered<T>()
-        {
-            return ActiveInstances.ContainsKey(typeof(T));
-        }
-
-        public static void Register<T>(T newSingleton)
-        {
-            if (newSingleton == null) { return; }
-
-            if (!ActiveInstances.TryAdd(typeof(T), newSingleton))
-            {
-                throw new Exception($"Failed to register new singleton for type {newSingleton.GetType()}");
-            }
-        }
-
-        public static void Dispose()
-        {
-            foreach (object singleton in ActiveInstances.Values)
-            {
-                // Only dispose the disposable objects that we own
-                if (singleton is IPluginDisposable disposable)
-                {
-                    disposable.Dispose();
-                }
-            }
-
-            ActiveInstances.Clear();
-        }
+        TexturesCache.Dispose();
+        KeybindHelper.Dispose();
+        DelvCDConfig.Dispose();
+        FontsManager.Dispose();
+        PluginManager.Dispose();
     }
 }
