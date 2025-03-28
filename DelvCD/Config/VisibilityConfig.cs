@@ -44,7 +44,7 @@ namespace DelvCD.Config
 
         public bool IsVisible(bool parentVisible)
         {
-            if (AlwaysHide)
+            if (!parentVisible || AlwaysHide)
             {
                 return false;
             }
@@ -97,7 +97,7 @@ namespace DelvCD.Config
                 return false;
             }
 
-            return parentVisible && CharacterState.IsJobType(CharacterState.GetCharacterJob(), ShowForJobTypes, CustomJobList);
+            return CharacterState.IsJobType(CharacterState.GetCharacterJob(), ShowForJobTypes, CustomJobList);
         }
 
         public void DrawConfig(IConfigurable parent, Vector2 size, float padX, float padY)
