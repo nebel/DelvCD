@@ -164,7 +164,7 @@ namespace DelvCD.Config
                     }
                     ImGui.PopItemWidth();
 
-                    if (_iconSearchResults.Any())
+                    if (_iconSearchResults.Count != 0)
                     {
                         if (ImGui.BeginChild("##IconPicker", new Vector2(size.X - padX * 2, 60 * _scale), true))
                         {

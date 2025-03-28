@@ -279,7 +279,7 @@ namespace DelvCD.Helpers
             }
 
             // Add by name
-            if (!actionList.Any())
+            if (actionList.Count == 0)
             {
                 foreach (LuminaAction action in actionSheet)
                 {
@@ -336,7 +336,7 @@ namespace DelvCD.Helpers
             }
 
             // Add by name
-            if (!actionList.Any())
+            if (actionList.Count == 0)
             {
                 foreach (ActionIndirection indirectAction in actionIndirectionSheet)
                 {
@@ -371,7 +371,7 @@ namespace DelvCD.Helpers
             }
 
             // Add by name (Add by id doesn't really work, these sheets are a mess)
-            if (!actionList.Any())
+            if (actionList.Count == 0)
             {
                 foreach (GeneralAction generalAction in generalSheet)
                 {

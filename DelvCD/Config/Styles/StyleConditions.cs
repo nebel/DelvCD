@@ -101,7 +101,7 @@ namespace DelvCD.Config
 
         public T? GetStyle(DataSource[]? data)
         {
-            if (!Conditions.Any() || data is null)
+            if (Conditions.Count == 0 || data is null)
             {
                 return null;
             }

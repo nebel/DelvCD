@@ -60,7 +60,7 @@ namespace DelvCD.Config
         public bool IsTriggered(bool preview, out int triggeredIndex)
         {
             triggeredIndex = 0;
-            if (!TriggerOptions.Any())
+            if (TriggerOptions.Count == 0)
             {
                 return false;
             }
@@ -116,7 +116,7 @@ namespace DelvCD.Config
 
         public void DrawConfig(IConfigurable parent, Vector2 size, float padX, float padY)
         {
-            if (!TriggerOptions.Any())
+            if (TriggerOptions.Count == 0)
             {
                 return;
             }

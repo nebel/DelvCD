@@ -32,7 +32,7 @@ namespace DelvCD.Config
 
         public override bool IsTriggered(bool preview)
         {
-            if (!TriggerData.Any())
+            if (TriggerData.Count == 0)
             {
                 return false;
             }
